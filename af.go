@@ -5,7 +5,7 @@ import (
 )
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
 import "C"
 
 // AddressFamily that should be filtered by pf (inet / inet6)

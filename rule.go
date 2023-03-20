@@ -1,7 +1,7 @@
 package pf
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
 import "C"
 
 // Rule wraps the pf rule (cgo)

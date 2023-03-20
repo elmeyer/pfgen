@@ -5,7 +5,7 @@ import (
 )
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
 import "C"
 
 // Protocol that should be filtered by pf

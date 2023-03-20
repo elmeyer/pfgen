@@ -9,7 +9,7 @@ import (
 )
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
 /*
 int addr_type(struct pf_addr_wrap* addr) { return addr->type; }
 void set_addr_type(struct pf_addr_wrap* addr, int type) { addr->type = type; }

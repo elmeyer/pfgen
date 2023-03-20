@@ -8,7 +8,8 @@ import (
 )
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
+// uint16_t Htons(uint16_t hostshort) { return htons(hostshort); }
 import "C"
 
 // ParseSource sets the source ip (inet and inet6) based on the
@@ -80,7 +81,7 @@ func parsePort(addr *C.struct_pf_rule_addr, port string) error {
 				return fmt.Errorf("Port number can't be negative: %d", val)
 			}
 
-			addr.port[curPort] = C.u_int16_t(C.htons(C.uint16_t(val)))
+			addr.port[curPort] = C.u_int16_t(C.Htons(C.uint16_t(val)))
 			curPort++
 
 			// if it is the first number and after there is nothing, set none

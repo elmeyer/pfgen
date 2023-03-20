@@ -5,7 +5,7 @@ import (
 )
 
 // #include <net/if.h>
-// #include <net/pfvar.h>
+// #include "pfvar.h"
 import "C"
 
 // State wether the packet filter should keep
