@@ -66,6 +66,7 @@ struct pf_rule {
 	u_int64_t		 packets[2];
 	u_int64_t		 bytes[2];
 
+	u_int32_t	 	 rule_flag;
   	u_int8_t		 action;
  	u_int8_t		 direction;
 	u_int8_t		 log;
@@ -96,5 +97,15 @@ enum	{ PF_PASS, PF_DROP, PF_SCRUB, PF_NOSCRUB, PF_NAT, PF_NONAT,
 	  PF_MATCH };
 enum	{ PF_OP_NONE, PF_OP_IRG, PF_OP_EQ, PF_OP_NE, PF_OP_LT,
 	  PF_OP_LE, PF_OP_GT, PF_OP_GE, PF_OP_XRG, PF_OP_RRG };
+
+/* rule flags */
+#define	PFRULE_DROP			0x0000
+#define	PFRULE_RETURNRST	0x0001
+#define	PFRULE_FRAGMENT		0x0002
+#define	PFRULE_RETURNICMP	0x0004
+#define	PFRULE_RETURN		0x0008
+#define	PFRULE_NOSYNC		0x0010
+#define PFRULE_SRCTRACK		0x0020  /* track source states */
+#define PFRULE_RULESRCTRACK	0x0040  /* per rule */
 
 #endif /* _PFVAR_H_ */

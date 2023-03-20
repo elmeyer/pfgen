@@ -15,7 +15,17 @@ import "C"
 func (r Rule) String() string {
 	var dump []string
 
-	dump = append(dump, r.Action().String())
+	if r.Action() == ActionDrop {
+		dump = append(dump, "block")
+		if r.Return() {
+			dump = append(dump, "return")
+		} else {
+			dump = append(dump, r.Action().String())
+		}
+	} else {
+		dump = append(dump, r.Action().String())
+	}
+
 	dump = append(dump, r.Direction().String())
 
 	if r.Log() {
