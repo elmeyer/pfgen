@@ -111,5 +111,9 @@ func (r Rule) Return() bool {
 
 // SetReturn sets whether TCP RST/ICMP UNREACHABLE is returned
 func (r *Rule) SetReturn(t bool) {
-	r.wrap.rule.rule_flag = r.wrap.rule.rule_flag | C.PFRULE_RETURN
+	if t {
+		r.wrap.rule.rule_flag = r.wrap.rule.rule_flag | C.PFRULE_RETURN
+	} else {
+		r.wrap.rule.rule_flag = r.wrap.rule.rule_flag & ^C.uint(C.PFRULE_RETURN)
+	}
 }
