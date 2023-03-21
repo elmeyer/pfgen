@@ -39,15 +39,29 @@ func (r Rule) Protocol() Protocol {
 // SetLog enables logging of packets to the log interface
 func (r *Rule) SetLog(enabled bool) {
 	if enabled {
-		r.wrap.rule.log = 1
+		r.wrap.rule.log |= C.PF_LOG
 	} else {
-		r.wrap.rule.log = 0
+		r.wrap.rule.log &= ^C.u_int8_t(C.PF_LOG)
 	}
 }
 
 // Log returns true if matching packets are logged
 func (r Rule) Log() bool {
-	return r.wrap.rule.log == 1
+	return r.wrap.rule.log > 0
+}
+
+// SetLogAll sets whether, for rules keeping state, all packets are logged instead of just the initial one.
+func (r *Rule) SetLogAll(enabled bool) {
+	if enabled {
+		r.wrap.rule.log |= C.PF_LOG_ALL
+	} else {
+		r.wrap.rule.log &= ^C.u_int8_t(C.PF_LOG_ALL)
+	}
+}
+
+// LogAll returns whether, for rules keeping state, all packets are logged instead of just the initial one.
+func (r Rule) LogAll() bool {
+	return r.wrap.rule.log&C.PF_LOG_ALL != 0
 }
 
 // SetLogIf sets the index of the pflog device to be used for logging.

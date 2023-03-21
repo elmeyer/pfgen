@@ -28,10 +28,19 @@ func (r Rule) String() string {
 
 	dump = append(dump, r.Direction().String())
 
-	if r.Log() {
+	if r.Log() || r.LogAll() {
 		dump = append(dump, "log")
-		if i := r.LogIf(); i != 0 {
-			dump = append(dump, []string{"to", fmt.Sprintf("pflog%d", i)}...)
+		if i := r.LogIf(); i != 0 || r.LogAll() {
+			var logParams []string
+			if r.LogAll() {
+				logParams = append(logParams, "all")
+			}
+
+			if i != 0 {
+				logParams = append(logParams, fmt.Sprintf("to pflog%d", i))
+			}
+
+			dump = append(dump, fmt.Sprintf("(%s)", strings.Join(logParams, ", ")))
 		}
 	}
 

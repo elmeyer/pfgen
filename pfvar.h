@@ -109,4 +109,10 @@ enum	{ PF_OP_NONE, PF_OP_IRG, PF_OP_EQ, PF_OP_NE, PF_OP_LT,
 #define PFRULE_SRCTRACK		0x0020  /* track source states */
 #define PFRULE_RULESRCTRACK	0x0040  /* per rule */
 
+#define	PF_LOG			0x01
+#define	PF_LOG_ALL		0x02
+#define	PF_LOG_USER		0x04
+#define	PF_LOG_FORCE		0x08
+#define	PF_LOG_MATCHES		0x10
+
 #endif /* _PFVAR_H_ */
