@@ -30,6 +30,9 @@ func (r Rule) String() string {
 
 	if r.Log() {
 		dump = append(dump, "log")
+		if i := r.LogIf(); i != 0 {
+			dump = append(dump, []string{"to", fmt.Sprintf("pflog%d", i)}...)
+		}
 	}
 
 	if r.Quick() {

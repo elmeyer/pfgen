@@ -50,6 +50,16 @@ func (r Rule) Log() bool {
 	return r.wrap.rule.log == 1
 }
 
+// SetLogIf sets the index of the pflog device to be used for logging.
+func (r *Rule) SetLogIf(i uint8) {
+	r.wrap.rule.logif = C.u_int8_t(i)
+}
+
+// LogIf returns the index of the pflog device to be used for logging.
+func (r Rule) LogIf() uint8 {
+	return uint8(r.wrap.rule.logif)
+}
+
 // SetQuick skips further evaluations if packet matched
 func (r *Rule) SetQuick(enabled bool) {
 	if enabled {

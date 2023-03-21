@@ -70,6 +70,7 @@ struct pf_rule {
   	u_int8_t		 action;
  	u_int8_t		 direction;
 	u_int8_t		 log;
+	u_int8_t		 logif;
 	u_int8_t		 quick;
 
 	u_int8_t		 proto;
