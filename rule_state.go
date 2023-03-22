@@ -28,7 +28,7 @@ const (
 func (s State) String() string {
 	switch s {
 	case StateNo:
-		return ""
+		return "no state"
 	case StateKeep:
 		return "keep state"
 	case StateModulate:
