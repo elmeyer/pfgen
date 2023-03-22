@@ -79,6 +79,8 @@ struct pf_rule {
 #define PF_STATE_MODULATE	0x2
 #define PF_STATE_SYNPROXY	0x3
 	u_int8_t		 keep_state;
+	u_int8_t		 flags;
+	u_int8_t		 flagset;
 	sa_family_t		 af;
 };
 

@@ -27,7 +27,7 @@ func (r Rule) String() string {
 	}
 
 	if r.Direction() != DirectionInOut {
-	dump = append(dump, r.Direction().String())
+		dump = append(dump, r.Direction().String())
 	}
 
 	if r.Log() || r.LogAll() {
@@ -72,7 +72,17 @@ func (r Rule) String() string {
 	}
 
 	if s := r.State(); s != StateNo {
+		if p := r.Protocol(); (p == ProtocolAny || p == ProtocolTCP) && r.Action() == ActionPass {
+			if f := r.Flags(); !f.Default() {
+				dump = append(dump, r.Flags().String())
+			}
+		}
+
 		dump = append(dump, s.String())
+	} else if p := r.Protocol(); (p == ProtocolAny || p == ProtocolTCP) && r.Action() == ActionPass {
+		if f := r.Flags(); !f.Any() {
+			dump = append(dump, f.String())
+		}
 	}
 
 	return strings.Join(dump, " ")

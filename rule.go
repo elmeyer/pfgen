@@ -141,3 +141,19 @@ func (r *Rule) SetReturn(t bool) {
 		r.wrap.rule.rule_flag = r.wrap.rule.rule_flag & ^C.uint(C.PFRULE_RETURN)
 	}
 }
+
+// Flags returns the TCP flags out of flagset that must be set for this rule to match.
+// See pf.conf(5) for an explanation.
+func (r Rule) Flags() Flags {
+	return Flags{
+		Set:   FlagHeader(r.wrap.rule.flags),
+		OutOf: FlagHeader(r.wrap.rule.flagset),
+	}
+}
+
+// Flags sets the TCP flags out of flagset that must be set for this rule to match.
+// See pf.conf(5) for an explanation.
+func (r *Rule) SetFlags(f Flags) {
+	r.wrap.rule.flags = C.u_int8_t(f.Set)
+	r.wrap.rule.flagset = C.u_int8_t(f.OutOf)
+}
