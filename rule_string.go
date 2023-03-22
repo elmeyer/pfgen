@@ -64,19 +64,20 @@ func (r Rule) String() string {
 	dump = append(dump, "to")
 	dump = addressDump(dump, &r.wrap.rule.dst, r.wrap.rule.af)
 
-	if s := r.State(); s != StateNo {
+	s := r.State()
+	if s != StateNo {
 		if p := r.Protocol(); (p == ProtocolAny || p == ProtocolTCP) && r.Action() == ActionPass {
 			if f := r.Flags(); !f.Default() {
 				dump = append(dump, r.Flags().String())
 			}
 		}
-
-		dump = append(dump, s.String())
 	} else if p := r.Protocol(); (p == ProtocolAny || p == ProtocolTCP) && r.Action() == ActionPass {
 		if f := r.Flags(); !f.Any() {
 			dump = append(dump, f.String())
 		}
 	}
+
+	dump = append(dump, s.String())
 
 	return strings.Join(dump, " ")
 }
