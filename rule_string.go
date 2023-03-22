@@ -58,18 +58,11 @@ func (r Rule) String() string {
 		dump = append(dump, "proto", proto.String())
 	}
 
-	// ugly
-	if !((&Address{wrap: &r.wrap.rule.src.addr, af: r.wrap.rule.af}).Any() && // source
-		(&Address{wrap: &r.wrap.rule.dst.addr, af: r.wrap.rule.af}).Any()) { // destination
+	dump = append(dump, "from")
+	dump = addressDump(dump, &r.wrap.rule.src, r.wrap.rule.af)
 
-		dump = append(dump, "from")
-		dump = addressDump(dump, &r.wrap.rule.src, r.wrap.rule.af)
-
-		dump = append(dump, "to")
-		dump = addressDump(dump, &r.wrap.rule.dst, r.wrap.rule.af)
-	} else {
-		dump = append(dump, "all")
-	}
+	dump = append(dump, "to")
+	dump = addressDump(dump, &r.wrap.rule.dst, r.wrap.rule.af)
 
 	if s := r.State(); s != StateNo {
 		if p := r.Protocol(); (p == ProtocolAny || p == ProtocolTCP) && r.Action() == ActionPass {
