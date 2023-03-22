@@ -26,7 +26,9 @@ func (r Rule) String() string {
 		dump = append(dump, r.Action().String())
 	}
 
+	if r.Direction() != DirectionInOut {
 	dump = append(dump, r.Direction().String())
+	}
 
 	if r.Log() || r.LogAll() {
 		dump = append(dump, "log")
